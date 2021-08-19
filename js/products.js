@@ -4,8 +4,10 @@ document.addEventListener("DOMContentLoaded", function (e) {
         .then(resp=>(resp.json()) 
         .then(data =>{
             lista.innerHTML=`
-            <h2 class="pb-5 text-center p-4">Productos</h2>
+            <div class="text-center pb-5 p-4">
+            <h2>Productos</h2>
             <p class="lead">Verás aquí todos los productos de esta categoría.</p>
+        </div>
             <ul></ul>`
             for (let i = 0; i < data.length; i++) {
                 lista.innerHTML+=
