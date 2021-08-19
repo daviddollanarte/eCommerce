@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function (e) {
     var lista = document.getElementById("lista");
-    fetch("https://japdevdep.github.io/ecommerce-api/product/all.json")
+    fetch(PRODUCTS_URL)
         .then(resp => (resp.json())
             .then(data => {
                 lista.innerHTML = `
