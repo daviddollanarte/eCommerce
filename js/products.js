@@ -10,16 +10,22 @@ document.addEventListener("DOMContentLoaded", function (e) {
         </div>
             <ul></ul>`
             for (let i = 0; i < data.length; i++) {
-                lista.innerHTML+=
-                `<div class="container pb-5 my-3 list-group">
-                <li>`+data[i].name+`
-                <hr>
-                `+data[i].currency+` `+data[i].cost+`
-                <hr>
-                `+data[i].description+`</li>
-                <hr>
+                lista.innerHTML+=`
+                <a href="product-info.html" class="list-group-item list-group-item-action">
+                <div class="row">
+                    <div class="col-3">
+                        <img src="` + data[i].imgSrc + `" alt="` + data[i].name + `" class="img-thumbnail">
+                    </div>
+                    <div class="col">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h4 class="mb-1">`+ data[i].name +`</h4>
+                            <small class="text-muted">` + data[i].currency+ data[i].cost + `</small>
+                        </div>
+                        <p class="mb-1">` + data[i].description + `</p>
+                    </div>
                 </div>
-                `
+            </a>
+            `
             }
         }))
 })
