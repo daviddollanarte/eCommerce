@@ -1,16 +1,16 @@
 document.addEventListener("DOMContentLoaded", function (e) {
-    var lista=document.getElementById("lista");
-    fetch ("https://japdevdep.github.io/ecommerce-api/product/all.json")
-        .then(resp=>(resp.json()) 
-        .then(data =>{
-            lista.innerHTML=`
+    var lista = document.getElementById("lista");
+    fetch("https://japdevdep.github.io/ecommerce-api/product/all.json")
+        .then(resp => (resp.json())
+            .then(data => {
+                lista.innerHTML = `
             <div class="text-center pb-5 p-4">
             <h2>Productos</h2>
             <p class="lead">Verás aquí todos los productos de esta categoría.</p>
         </div>
             <ul></ul>`
-            for (let i = 0; i < data.length; i++) {
-                lista.innerHTML+=`
+                for (let i = 0; i < data.length; i++) {
+                    lista.innerHTML += `
                 <a href="product-info.html" class="list-group-item list-group-item-action">
                 <div class="row">
                     <div class="col-3">
@@ -18,14 +18,15 @@ document.addEventListener("DOMContentLoaded", function (e) {
                     </div>
                     <div class="col">
                         <div class="d-flex w-100 justify-content-between">
-                            <h4 class="mb-1">`+ data[i].name +`</h4>
-                            <small class="text-muted">` + data[i].currency+ data[i].cost + `</small>
+                            <h4 class="mb-1">`+ data[i].name + `</h4>
                         </div>
                         <p class="mb-1">` + data[i].description + `</p>
+                        <br>
+                        <p class="mb-1">` + data[i].currency + data[i].cost + `</p>
                     </div>
                 </div>
             </a>
             `
-            }
-        }))
+                }
+            }))
 })
