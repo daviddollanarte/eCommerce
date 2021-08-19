@@ -1,14 +1,18 @@
-//Función que se ejecuta una vez que se haya lanzado el evento de
-//que el documento se encuentra cargado, es decir, se encuentran todos los
-//elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function (e) {
     var lista=document.getElementById("lista");
-    fetch (PRODUCTS_URL)
+    fetch ("https://japdevdep.github.io/ecommerce-api/product/all.json")
         .then(resp=>(resp.json()) 
         .then(data =>{
             lista.innerHTML=`<ul></ul>`
-            for (i in data[i]){
-
+            for (let i = 0; i < data.length; i++) {
+                lista.innerHTML+=
+                `<div class="container pb-5 my-3 list-group">
+                <li>`+data[i].name+`</li> 
+                <li>`+data[i].currency+` `+data[i].cost+`</li>
+                <li>`+data[i].description+`</li>
+                <hr>
+                </div>
+                `
             }
         }))
 })
