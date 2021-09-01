@@ -39,14 +39,14 @@
 
 <body class="text-center">
   <div class="container p-5">
-    <form action="index.html" method="GET">
+    <form id="loginpg" action="index.html" method="GET">
       <div class="imgcontainer">
         <img src="img/login.png" alt="Avatar" class="avatar">
       </div>
     
       <div class="container">
         <label for="uname"><b>Usuario</b></label>
-        <input type="text" placeholder="Ingrese Usuario" name="uname" required>
+        <input id="user" type="text" placeholder="Ingrese Usuario" name="uname" required>
     
         <label for="psw"><b>Contraseña</b></label>
         <input type="password" placeholder="Ingrese Contraseña" name="psw" required>
@@ -60,5 +60,6 @@
   </div>
 
   <script src="js/init.js"></script>
+  <script src="js/username.js"></script>
 </body>
 </html>
