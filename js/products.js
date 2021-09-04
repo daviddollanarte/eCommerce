@@ -104,19 +104,16 @@ document.addEventListener("DOMContentLoaded", function (e) {
     })
     document.getElementById("sortAsc").addEventListener("click", function () {
         criterio = "Asc"
-        console.log(criterio, " ", productsArray)
         productsArray= sortProducts();
         showProducts()
     })
     document.getElementById("sortDesc").addEventListener("click", function () {
         criterio = "Desc"
-        console.log(criterio, " ", productsArray)
         productsArray= sortProducts();
         showProducts()
     })
     document.getElementById("sortByCount").addEventListener("click", function () {
         criterio = "count"
-        console.log(criterio, " ", productsArray)
         productsArray= sortProducts();
         showProducts()
     })
