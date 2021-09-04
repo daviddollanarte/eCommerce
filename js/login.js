@@ -1,8 +1,9 @@
-document.addEventListener("DOMContentLoaded", function(e){
+function login(){
  if(!localStorage.getItem('logedin')) {
-            window.location.replace("login.html");
-            localStorage.setItem("logedin","true");
-          } 
-    }
-    
-);
+  console.log(localStorage.getItem("logedin"))
+    window.location.replace("login.html");
+    localStorage.setItem("logedin","true");
+  } 
+}
+
+document.addEventListener("DOMContentLoaded", login());

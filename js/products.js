@@ -36,18 +36,7 @@ function showProducts() {
         }
     }
 }
-/*function sortProducts() {
-    if (criterio == "Asc") {
-        productsArray.sort(function (a, b) { return a.cost - b.cost })
-        console.log(productsArray)
-    }
-    if (criterio == "Desc") {
-        productsArray = productsArray.sort(function (a, b) { return b.cost - a.cost })
-    }
-    if (criterio == "count") {
-        productsArray = productsArray.sort(function (a, b) { return b.soldCount - a.soldCount })
-    }
-}*/
+
 
 function sortProducts () {
     if (criterio == "Asc") {
