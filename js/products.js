@@ -1,132 +1,135 @@
-const ORDER_ASC_BY_NAME = "AZ";
-const ORDER_DESC_BY_NAME = "ZA";
-const ORDER_BY_PROD_COUNT = "Cant.";
-var currentCategoriesArray = [];
-var currentSortCriteria = undefined;
-var minCount = undefined;
-var maxCount = undefined;
+var
+    productsArray = [],
+    minPrice = "",
+    maxPrice = "",
+    criterio = ""
+    minPriceInt=0,
+    maxPriceInt=0;
 
-function sortCategories(criteria, array){
-    let result = [];
-    if (criteria === ORDER_ASC_BY_NAME)
-    {
-        result = array.sort(function(a, b) {
-            if ( a.name < b.name ){ return -1; }
-            if ( a.name > b.name ){ return 1; }
-            return 0;
-        });
-    }else if (criteria === ORDER_DESC_BY_NAME){
-        result = array.sort(function(a, b) {
-            if ( a.name > b.name ){ return -1; }
-            if ( a.name < b.name ){ return 1; }
-            return 0;
-        });
-    }else if (criteria === ORDER_BY_PROD_COUNT){
-        result = array.sort(function(a, b) {
-            let aCount = parseInt(a.productCount);
-            let bCount = parseInt(b.productCount);
-
-            if ( aCount > bCount ){ return -1; }
-            if ( aCount < bCount ){ return 1; }
-            return 0;
-        });
+function showProducts() {
+    data = productsArray
+    var lista = document.getElementById("lista");
+    lista.innerHTML = `
+    <ul></ul>`
+    for (let i = 0; i < data.length; i++) {
+        if ((minPrice == "" || data[i].cost >= minPriceInt) &&
+            (maxPrice == "" || data[i].cost <= maxPriceInt))
+        {
+            console.log(maxPriceInt, ", ", data[i].cost)
+            lista.innerHTML += `
+            <a href="product-info.html" class="list-group-item list-group-item-action">
+            <div class="row">
+                <div class="col-3">
+                    <img src="` + data[i].imgSrc + `" alt="` + data[i].name + `" class="img-thumbnail">
+                </div>
+                <div class="col">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h4 class="mb-1">`+ data[i].name + `</h4>
+                    </div>
+                    <p class="mb-1">` + data[i].description + `</p>
+                    <br>
+                    <p class="mb-1">` + data[i].currency + data[i].cost + `</p>
+                </div>
+            </div>
+        </a>
+        `
+        }
     }
+}
+/*function sortProducts() {
+    if (criterio == "Asc") {
+        productsArray.sort(function (a, b) { return a.cost - b.cost })
+        console.log(productsArray)
+    }
+    if (criterio == "Desc") {
+        productsArray = productsArray.sort(function (a, b) { return b.cost - a.cost })
+    }
+    if (criterio == "count") {
+        productsArray = productsArray.sort(function (a, b) { return b.soldCount - a.soldCount })
+    }
+}*/
+
+function sortProducts () {
+    if (criterio == "Asc") {
+        result = productsArray.sort(
+            function (a,b) {
+                if (a.cost > b.cost) {
+                    return 1;
+            }
+                if (a.cost < b.cost) {
+                    return -1; 
+                }
+            return 0;
+        })
+        return result;
+    }
+
+if (criterio == "Desc") {
+    result = productsArray.sort(
+        function (a,b) {
+            if (a.cost < b.cost) {
+                return 1;
+        }
+            if (a.cost > b.cost) {
+                return -1; 
+            }
+        return 0;
+    })
+    return result;
+}
+if (criterio == "count") {
+    result = productsArray.sort(
+        function (a,b) {
+            if (a.soldCount < b.soldCount) {
+                return 1;
+        }
+            if (a.soldCount > b.soldCount) {
+                return -1; 
+            }
+        return 0;
+    })
+    return result;
+}
 }
 
 document.addEventListener("DOMContentLoaded", function (e) {
-    var lista = document.getElementById("lista");
     fetch(PRODUCTS_URL)
         .then(resp => (resp.json())
-            .then(data => {
-                lista.innerHTML = `
-            <ul></ul>`
-                for (let i = 0; i < data.length; i++) {
-                    lista.innerHTML += `
-                <a href="product-info.html" class="list-group-item list-group-item-action">
-                <div class="row">
-                    <div class="col-3">
-                        <img src="` + data[i].imgSrc + `" alt="` + data[i].name + `" class="img-thumbnail">
-                    </div>
-                    <div class="col">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h4 class="mb-1">`+ data[i].name + `</h4>
-                        </div>
-                        <p class="mb-1">` + data[i].description + `</p>
-                        <br>
-                        <p class="mb-1">` + data[i].currency + data[i].cost + `</p>
-                    </div>
-                </div>
-            </a>
-            `
-                }
+            .then(function (data) {
+                productsArray = data;
+                showProducts()
             }))
-})
-
-function sortAndShowCategories(sortCriteria, categoriesArray){
-    currentSortCriteria = sortCriteria;
-
-    if(categoriesArray != undefined){
-        currentCategoriesArray = categoriesArray;
-    }
-
-    currentCategoriesArray = sortCategories(currentSortCriteria, currentCategoriesArray);
-
-    //Muestro las categorías ordenadas
-    showCategoriesList();
-}
-
-//Función que se ejecuta una vez que se haya lanzado el evento de
-//que el documento se encuentra cargado, es decir, se encuentran todos los
-//elementos HTML presentes.
-document.addEventListener("DOMContentLoaded", function(e){
-    getJSONData(CATEGORIES_URL).then(function(resultObj){
-        if (resultObj.status === "ok"){
-            sortAndShowCategories(ORDER_ASC_BY_NAME, resultObj.data);
-        }
-    });
-
-    document.getElementById("sortAsc").addEventListener("click", function(){
-        sortAndShowCategories(ORDER_ASC_BY_NAME);
-    });
-
-    document.getElementById("sortDesc").addEventListener("click", function(){
-        sortAndShowCategories(ORDER_DESC_BY_NAME);
-    });
-
-    document.getElementById("sortByCount").addEventListener("click", function(){
-        sortAndShowCategories(ORDER_BY_PROD_COUNT);
-    });
-
-    document.getElementById("clearRangeFilter").addEventListener("click", function(){
+    document.getElementById("rangeFilterCount").addEventListener("click", function () {
+        minPrice = document.getElementById("rangeFilterCountMin").value;
+        maxPrice = document.getElementById("rangeFilterCountMax").value;
+        minPriceInt = parseInt(minPrice);
+        maxPriceInt = parseInt(maxPrice);
+        showProducts()
+    })
+    document.getElementById("clearRangeFilter").addEventListener("click", function () {
         document.getElementById("rangeFilterCountMin").value = "";
         document.getElementById("rangeFilterCountMax").value = "";
+        minPrice = "";
+        maxPrice = "";
+        showProducts()
+    })
+    document.getElementById("sortAsc").addEventListener("click", function () {
+        criterio = "Asc"
+        console.log(criterio, " ", productsArray)
+        productsArray= sortProducts();
+        showProducts()
+    })
+    document.getElementById("sortDesc").addEventListener("click", function () {
+        criterio = "Desc"
+        console.log(criterio, " ", productsArray)
+        productsArray= sortProducts();
+        showProducts()
+    })
+    document.getElementById("sortByCount").addEventListener("click", function () {
+        criterio = "count"
+        console.log(criterio, " ", productsArray)
+        productsArray= sortProducts();
+        showProducts()
+    })
 
-        minCount = undefined;
-        maxCount = undefined;
-
-        showCategoriesList();
-    });
-
-    document.getElementById("rangeFilterCount").addEventListener("click", function(){
-        //Obtengo el mínimo y máximo de los intervalos para filtrar por cantidad
-        //de productos por categoría.
-        minCount = document.getElementById("rangeFilterCountMin").value;
-        maxCount = document.getElementById("rangeFilterCountMax").value;
-
-        if ((minCount != undefined) && (minCount != "") && (parseInt(minCount)) >= 0){
-            minCount = parseInt(minCount);
-        }
-        else{
-            minCount = undefined;
-        }
-
-        if ((maxCount != undefined) && (maxCount != "") && (parseInt(maxCount)) >= 0){
-            maxCount = parseInt(maxCount);
-        }
-        else{
-            maxCount = undefined;
-        }
-
-        showCategoriesList();
-    });
-});
+})
