@@ -57,7 +57,16 @@
         <label>
           <input type="checkbox" checked="checked" name="remember"> Recordar
         </label>
-        <div class="g-signin2" data-onsuccess="login2()"></div>
+        <div class="g-signin2" data-onsuccess="login2"></div>
+        <div><button onclick="signOut()">SignOut</button></div>
+        <script>function signOut(){
+          gapi.auth2.getAuthInstance().signOut.then(function(){
+            console.log("user signed out")
+          })
+        }</script>
+          <script>function longin2(googleUser){
+            console.log(JSON.stringify(googleUser.getBasicProfile()))
+          }</script>
       </div>
     </form>
   </div>
