@@ -10,4 +10,5 @@ document.getElementById("logout").addEventListener("click", function () {
         login()
     }
     )
+    localStorage.clear()
 })
