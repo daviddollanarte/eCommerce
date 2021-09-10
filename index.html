@@ -13,6 +13,8 @@
   <!-- Bootstrap core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+
 </head>
 
 <body>
@@ -25,6 +27,7 @@
   <script src="js/login.js"></script>
   <nav class="site-header sticky-top py-1 bg-dark">
     <div class="container d-flex flex-column flex-md-row justify-content-between">
+      <div class="g-signin2"></div>
       <a class="py-2 d-none d-md-inline-block" href="index.html">Inicio</a>
       <a class="py-2 d-none d-md-inline-block" href="categories.html">Categorías</a>
       <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
@@ -43,7 +46,7 @@
           <li>
             <hr>
           </li>
-          <li><a id="logout" href="login.html">Cerrar Sesión</a></li>
+          <li><a id="logout">Cerrar Sesión</a></li>
         </ul>
       </div>
     </div>

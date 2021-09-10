@@ -1,5 +1,4 @@
-var googlelogin = false;
-function login(googleUser) {
+function login() {
   if (!localStorage.getItem('logedin')) { 
     window.location.replace("login.html");
   }

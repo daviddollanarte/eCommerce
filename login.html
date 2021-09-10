@@ -14,7 +14,8 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
   <style>
-    html, body{
+    html,
+    body {
       height: 100%;
     }
 
@@ -35,7 +36,8 @@
       margin: auto;
     }
   </style>
-  <meta name="google-signin-client_id" content="1095992815672-oh7g4jkiqo7c3oh2t3nfkgu1udf80gb1.apps.googleusercontent.com">
+  <meta name="google-signin-client_id"
+    content="1095992815672-oh7g4jkiqo7c3oh2t3nfkgu1udf80gb1.apps.googleusercontent.com">
   <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 
@@ -45,34 +47,44 @@
       <div class="imgcontainer">
         <img src="img/login.png" alt="Avatar" class="avatar">
       </div>
-    
+
       <div class="container">
         <label for="uname"><b>Usuario</b></label>
         <input id="user" type="text" placeholder="Ingrese Usuario" name="uname" required>
-    
+
         <label for="psw"><b>Contraseña</b></label>
         <input type="password" placeholder="Ingrese Contraseña" name="psw" required>
-    
-        <button type="submit">  Entrar </button>
+
+        <button type="submit"> Entrar </button>
         <label>
           <input type="checkbox" checked="checked" name="remember"> Recordar
         </label>
-        <div class="g-signin2" data-onsuccess="login2"></div>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
         <div><button onclick="signOut()">SignOut</button></div>
-        <script>function signOut(){
-          gapi.auth2.getAuthInstance().signOut().then(function(){
-            console.log("user signed out")
-          })
-        }</script>
-          <script>function longin2(googleUser){
-            console.log(JSON.stringify(googleUser.getBasicProfile()))
+        <script> function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+              console.log('User signed out.');
+            });
+          }
+        </script>
+        <script>function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+            localStorage.setItem("logedin", "true");
+            localStorage.setItem("user", profile.getName());
+           window.location.replace("index.html")
           }</script>
       </div>
     </form>
   </div>
-  
+
 
   <script src="js/init.js"></script>
   <script src="js/username.js"></script>
 </body>
+
 </html>
