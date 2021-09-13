@@ -12,6 +12,9 @@
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
+    <meta name="google-signin-client_id"
+    content="1095992815672-oh7g4jkiqo7c3oh2t3nfkgu1udf80gb1.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
   </head>
   <body>
     <script src="js/login.js"></script>
@@ -98,6 +101,8 @@
         <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
       </div>
     </footer>
+    <div class="g-signin2" data-onsuccess="onSignIn" hidden></div>
+
     <div id="spinner-wrapper"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
     <script src="js/userdata.js"></script>
     <script src="js/jquery-3.4.1.min.js"></script>
