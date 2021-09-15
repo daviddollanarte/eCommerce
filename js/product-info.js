@@ -12,6 +12,13 @@ function showProductInfo() {
         <span style="font-weight:bold">`+ productInfoArray.currency + `</span> ` + productInfoArray.cost + `<hr>
     Cantidad de vendidos: `+ productInfoArray.soldCount + `<hr>
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+
+  </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
       <img class="d-block w-100" src="`+ productInfoArray.images[1] + `" alt="First slide">
