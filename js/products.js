@@ -15,7 +15,6 @@ function showProducts() {
         if ((minPrice == "" || data[i].cost >= minPriceInt) &&
             (maxPrice == "" || data[i].cost <= maxPriceInt))
         {
-            console.log(maxPriceInt, ", ", data[i].cost)
             lista.innerHTML += `
             <a href="product-info.html" class="list-group-item list-group-item-action">
             <div class="row">
