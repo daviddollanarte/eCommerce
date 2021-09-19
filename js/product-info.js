@@ -167,8 +167,14 @@ function saveNewComment(){
                 /*agregar el comentario directo al array con comentarios */
             }
             else {
-                commentBox.innerHTML+=``+newComment+``;
-            }
+                let newCommentArray={
+                    score: starRating,
+                    description: newComment.value,
+                    user: localStorage.getItem("user"),
+                    dateTime: new Date(),
+                };
+                newComment.value="";
+                console.log(newCommentArray)            }
         })
 }
 document.addEventListener("DOMContentLoaded", function (e) {
