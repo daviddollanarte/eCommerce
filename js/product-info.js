@@ -1,7 +1,9 @@
 var productInfoArray = [],
+    productComments = [],
     pag = document.getElementById("products-info"),
-    commentBox=document.getElementById("commentBox");
-;
+    commentBox=document.getElementById("commentBox"),
+    newCommentBox=document.getElementById("newCommentBox"),
+    starRating=0;
 
 function showProductInfo() {
     pag.innerHTML = "";
@@ -78,7 +80,7 @@ function showStars(rating) {
 }
 function boxColor(rating){
     if (rating<5){
-        if ( rating<4){
+        if ( rating<3){
             return "border border-danger";
         }
         return "border border-warning";
@@ -90,19 +92,84 @@ function showComments() {
     <h3>Comentarios:</h3>
     <hr>
     `
-    for (let i = 0; i < productInfoArray.length; i++) {
+    for (let i = 0; i < productComments.length; i++) {
         commentBox.innerHTML += `
-        <div class="container rounded bg-light `+boxColor(productInfoArray[i].score)+`">
-        <h4>`+ showName(productInfoArray[i].user) + `:</h4>
-        <p class="text-muted">`+ showDate(productInfoArray[i].dateTime) + `</p>
-        <p>`+ productInfoArray[i].description + `</p>
-        <p>`+ showStars(productInfoArray[i].score) + `</p>
+        <div class="container rounded bg-light `+boxColor(productComments[i].score)+`">
+        <h4>`+ showName(productComments[i].user) + `:</h4>
+        <p class="text-muted">`+ showDate(productComments[i].dateTime) + `</p>
+        <p>`+ productComments[i].description + `</p>
+        <p>`+ showStars(productComments[i].score) + `</p>
         </div>
         <hr>
         <br>
         `;
 
     }
+}
+function showNewCommentBox(){
+    newCommentBox.innerHTML=`
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                    <h2>Tienes un comentario para hacer?</h2>
+                    <br>
+                    <textarea id="newComment" placeholder="Escribelo aquí..." cols="60" rows="5"></textarea>
+                    <br>
+                    <div class="col">
+                    <a><span id="star1" onclick="saveStarRating(1)" onmouseover="changeStarCheck(1)" onmouseout="resetCheck(1)" class="fa fa-star checked"></span></a>
+                    <a><span id="star2" onclick="saveStarRating(2)" onmouseover="changeStarCheck(2)" onmouseout="resetCheck(2)" class="fa fa-star"></span></a>
+                    <a><span id="star3" onclick="saveStarRating(3)" onmouseover="changeStarCheck(3)" onmouseout="resetCheck(3)" class="fa fa-star"></span></a>
+                    <a><span id="star4" onclick="saveStarRating(4)" onmouseover="changeStarCheck(4)" onmouseout="resetCheck(4)" class="fa fa-star"></span></a>
+                    <a><span id="star5" onclick="saveStarRating(5)" onmouseover="changeStarCheck(5)" onmouseout="resetCheck(5)" class="fa fa-star"></span></a>
+                    </div>
+                    <div class="col-2">
+                        <button id="sendBtn" class="btn btn-primary">Comentar</button>" 
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    `
+}
+function saveStarRating(rating){
+    //add flag variable
+    starRating = rating;
+};
+function changeStarCheck(index){
+    for (i=0; i<index; i++){
+        let currentStar="star"+(i+1),
+            starElement=document.getElementById(currentStar);
+        starElement.classList.add("checked");
+    }
+};
+function resetCheck(){
+    for (i=1; i<5; i++){
+        let currentStar="star"+(i+1),
+        starElement=document.getElementById(currentStar);
+        starElement.classList.remove("checked");
+    }
+}
+
+function saveNewComment(){
+    var newComment=document.getElementById("newComment"),
+        sendBtn=document.getElementById("sendBtn");
+        sendBtn.addEventListener("click", function(){
+            if (!(sessionStorage.getItem("commentsOn?"))){
+                let newCommentArray={
+                    score: starRating,
+                    description: newComment.value,
+                    user: localStorage.getItem("user"),
+                    dateTime: new Date(),
+                };
+                newComment.value="";
+                console.log(newCommentArray)
+
+                /*agregar el comentario directo al array con comentarios */
+            }
+            else {
+                commentBox.innerHTML+=``+newComment+``;
+            }
+        })
 }
 document.addEventListener("DOMContentLoaded", function (e) {
     fetch(PRODUCT_INFO_URL)
@@ -111,13 +178,17 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 productInfoArray = data;
                 showProductInfo()
                 let commentsBtn=document.getElementById("commentsBtn");
+                sessionStorage.removeItem("commentsOn?");
+                showNewCommentBox();
+                saveNewComment();
+                console.log(new Date())
                 commentsBtn.addEventListener("click", function () {
                     if (!(sessionStorage.getItem("commentsOn?"))) {
                         sessionStorage.setItem("commentsOn?",true)
                         fetch(PRODUCT_INFO_COMMENTS_URL)
                             .then(resp => (resp.json())
                                 .then(function (data) {
-                                    productInfoArray = data;
+                                    productComments = data;
                                     commentsBtn.innerHTML = "Ocultar comentarios"
                                     showComments()
                                 }))
