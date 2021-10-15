@@ -32,8 +32,8 @@
   <link href="css/styles.css" rel="stylesheet">
   <link href="css/dropzone.css" rel="stylesheet">
   <meta name="google-signin-client_id"
-  content="1095992815672-oh7g4jkiqo7c3oh2t3nfkgu1udf80gb1.apps.googleusercontent.com">
-<script src="https://apis.google.com/js/platform.js" async defer></script>
+    content="1095992815672-oh7g4jkiqo7c3oh2t3nfkgu1udf80gb1.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 
 <body>
@@ -61,13 +61,87 @@
       </div>
     </div>
   </nav>
-  <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 5 (Fecha de entrega: 17/10/2021) y Entrega 7 (Fecha de entrega: 14/11/2021).</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
+  <div class="container">
+
+    <div class="text-center p-4">
+      <h2>Carrito</h2>
+      <p class="lead">Ajusta los últimos detalles y confirma tu compra.</p>
     </div>
+    <div class="container border border-rounded">
+    <div class="row">
+      <div class="col-3">
+      </div>
+      <div class="col-4">
+        <br><br>
+        <h3>Artículo</h3>
+      </div>
+      <div class="col-2">
+        <br><br>
+        <h3 class="border-primary">Prec. Unit.
+        </h3>
+      </div>
+      <div class="col-1">
+        <br><br>
+        <h3>
+          Cant.
+        </h3>
+      </div>
+      <div class="col-2">
+        <br>
+        <br>
+        <h3>
+          Sub-Total
+        </h3>
+      </div>
+    </div>
+    <hr>
+    <hr>
+    <div id="content">
+    </div>
+  </div>
+  <br><br>
+  <div class="row">
+    <div class="col-7"></div>
+    <div class="col-3">
+      <h5>
+      Total Arts: 
+    </h5>
+    </div>
+    <div class="col">
+      <h5>
+        $UY <span id="totalArts"></span>
+      </h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-7"></div>
+    <div class="col-3">
+      <h5>
+      Costo Envío: 
+    </h5>
+    </div>
+    <div class="col">
+      <h5>
+        $UY <span id="shippingCost">20</span>
+      </h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-7"></div>
+    <div class="col-3">
+      <h5 class="font-weight-bold" >
+      Total: 
+    </h5>
+    </div>
+    <div class="col">
+      <h5>
+        $UY <span id="total"></span>
+      </h5>
+    </div>
+  </div>
+  <div class="row float-right">
+    <button class="btn btn-danger">Comprar</button>
+  </div>
   </div>
   <div id="spinner-wrapper">
     <div class="lds-ring">
