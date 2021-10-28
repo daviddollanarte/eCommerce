@@ -62,85 +62,147 @@
     </div>
   </nav>
   <div class="container">
-
     <div class="text-center p-4">
       <h2>Carrito</h2>
       <p class="lead">Ajusta los últimos detalles y confirma tu compra.</p>
     </div>
-    <div class="container border border-rounded">
     <div class="row">
-      <div class="col-3">
+      <div class="col-9 ml-n5 pl-n5">
+        <div class="container border border-rounded">
+          <div class="row">
+            <div class="col-3">
+            </div>
+            <div class="col-4">
+              <br><br>
+              <h3>Artículo</h3>
+            </div>
+            <div class="col-2">
+              <br><br>
+              <h3 class="border-primary">Prec. Unit.
+              </h3>
+            </div>
+            <div class="col-1">
+              <br><br>
+              <h3>
+                Cant.
+              </h3>
+            </div>
+            <div class="col-2">
+              <br>
+              <br>
+              <h3>
+                Prec. Total
+              </h3>
+            </div>
+          </div>
+          <hr>
+          <div id="content">
+          </div>
+        </div>
       </div>
-      <div class="col-4">
-        <br><br>
-        <h3>Artículo</h3>
-      </div>
-      <div class="col-2">
-        <br><br>
-        <h3 class="border-primary">Prec. Unit.
-        </h3>
-      </div>
-      <div class="col-1">
-        <br><br>
-        <h3>
-          Cant.
-        </h3>
-      </div>
-      <div class="col-2">
+      <div class="col mr-n5 pr-n5">
+        <div class="container border border-rounded">
+          <div class="row">
+            <div class="col-5">
+              <h5>
+                Sub-Total:
+              </h5>
+            </div>
+            <div class="col-7">
+              <h5>
+                UYU$ <span id="subTotal"></span>
+              </h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-5">
+              <h5>
+                Tipo Envío:
+              </h5>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <select onchange="checkShipping(); shippingTotal()" class="form-control" id="selectShipping">
+                  <option value="1">Retira en local UYU$0</option>
+                  <option value="2">Standard(12/15días) 5% SubTotal</option>
+                  <option value="3">Express (5/8días) 7% SubTotal</option>
+                  <option value="4">Premium (2/5días) 15% SubTotal</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="container border border-rounded d-none" id="shippingData">
+            <h5>Ingrese datos de envío</h5>
+            <br>
+            <label for="addressSt"> Dirección:</label>
+            <input type="text" id="addressSt" placeholder="Calle">
+            <div class="ml-0 pl-0 col-6"><input type="text" maxlength="4" id="addressNr" placeholder="Nro puerta">
+            </div>
+            <input type="text" id="addressCrnr" placeholder="Esquina">
+            <input type="text" id="addressCntry" placeholder="País">
+          </div>
+          <div class="row pt-2">
+            <div class="col-5">
+              <h5>
+                Tipo Pago:
+              </h5>
+            </div>
+            <div class="col-7">
+              <div class="form-group">
+                <select onchange="checkShipping()" class="form-control" id="selectPayment">
+                  <option value="1">Paga en local</option>
+                  <option value="2">Pago online con tarj.</option>
+                  <option value="3">Pago por red de cobranza</option>
+                </select>
+              </div>
+              <p class="badge badge-danger text-wrap d-none" id="warning">Seleccionando pago en local y envío a
+                domicilio deberá abonar el producto para que se procese el envío</p>
+            </div>
+          </div>
+          <div class="container border border-rounded d-none" id="shippingData">
+            <h5>Ingrese datos de pago</h5>
+            <br>
+            <label for="cardPayment">Datos tarjeta:</label>
+            <input type="text" id="cardPayment" placeholder="Nro tarjeta">
+            <div class="row">
+              <div class="col-8"><input type="text" maxlength="8" id="expireDate" placeholder="Fecha exp.">
+              </div>
+              <div class="col-4">
+                <input type="text" id="securityNr" placeholder="Nro seg." maxlength="3">
+              </div>
+            </div>
+          </div>
+          <div class="container border border-rounded d-none" id="shippingData">
+            <h5>Ingrese datos de transferencia</h5>
+            <p class="text-muted">Deberá hacer una transferencia a la <span class="font-weight-bold">CA 013-3301808800</span> y luego subir el comprobante haciendo click en "Seleccionar archivo"</p>
+            <br>
+            <label for="ticketFile">Seleccione el comprobante de transferencia</label>
+            <input type="file" class="form-control-file" id="ticketFile">
+          </div>
+        </div>
         <br>
-        <br>
-        <h3>
-          Sub-Total
-        </h3>
+        <div class="row">
+          <div class="col-5">
+            <h5 class="font-weight-bold">
+              Total:
+            </h5>
+          </div>
+          <div class="col-7">
+            <h5>
+              <button id="totCurrency" onclick="changeCurrency()" class="btn btn-secondary"
+                style="width: 4em;">UYU$</button> <span id="total"></span>
+            </h5>
+          </div>
+        </div>
+        <p class="text-muted" style="text-align: right;">Haz click para cambiar la moneda</p>
+        <button class="btn btn-lg btn-danger float-right">Comprar</button>
+        <p style="color: white;">-</p>
       </div>
     </div>
-    <hr>
-    <hr>
-    <div id="content">
-    </div>
   </div>
-  <br><br>
-  <div class="row">
-    <div class="col-7"></div>
-    <div class="col-3">
-      <h5>
-      Total Arts: 
-    </h5>
-    </div>
-    <div class="col">
-      <h5>
-        $UY <span id="totalArts"></span>
-      </h5>
-    </div>
   </div>
-  <div class="row">
-    <div class="col-7"></div>
-    <div class="col-3">
-      <h5>
-      Costo Envío: 
-    </h5>
-    </div>
-    <div class="col">
-      <h5>
-        $UY <span id="shippingCost">20</span>
-      </h5>
-    </div>
   </div>
-  <div class="row">
-    <div class="col-7"></div>
-    <div class="col-3">
-      <h5 class="font-weight-bold" >
-      Total: 
-    </h5>
-    </div>
-    <div class="col">
-      <h5>
-        $UY <span id="total"></span>
-      </h5>
-    </div>
   </div>
-  <div class="row float-right">
-    <button class="btn btn-danger">Comprar</button>
   </div>
   </div>
   <div id="spinner-wrapper">

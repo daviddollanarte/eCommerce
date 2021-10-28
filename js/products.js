@@ -9,28 +9,23 @@ var
 function showProducts() {
     data = productsArray
     var lista = document.getElementById("lista");
-    lista.innerHTML = `
-    <ul></ul>`
+    lista.innerHTML = ``
     for (let i = 0; i < data.length; i++) {
         if ((minPrice == "" || data[i].cost >= minPriceInt) &&
             (maxPrice == "" || data[i].cost <= maxPriceInt))
         {
             lista.innerHTML += `
-            <a href="product-info.html" class="list-group-item list-group-item-action">
-            <div class="row">
-                <div class="col-3">
-                    <img src="` + data[i].imgSrc + `" alt="` + data[i].name + `" class="img-thumbnail">
-                </div>
-                <div class="col">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h4 class="mb-1">`+ data[i].name + `</h4>
-                    </div>
-                    <p class="mb-1">` + data[i].description + `</p>
-                    <br>
-                    <p class="mb-1">` + data[i].currency + data[i].cost + `</p>
-                </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+              <a href="product-info.html" class="list-group-item list-group-item-action">
+                  <img src="` + data[i].imgSrc + `" alt="` + data[i].name + `" style="width: 18em" class="img-thumbnail">
+                  <div class="d-flex w-100 justify-content-between">
+                    <h4 class="mb-1">`+ data[i].name + `</h4>
+                  </div>
+                  <p class="mb-1">` + data[i].description + `</p>
+                  <br>
+                  <p class="mb-1">` + data[i].currency + data[i].cost + `</p>
+              </a>
             </div>
-        </a>
         `
         }
     }
