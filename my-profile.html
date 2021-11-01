@@ -11,6 +11,7 @@
 
   <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+  <link href="img/icon.jpg" rel="icon">
 
   <style>
     .bd-placeholder-img {
@@ -61,12 +62,48 @@
       </div>
     </div>
   </nav>
-  <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 6 (Fecha de entrega: 31/10/2021).</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
+  <div class="container">
+    <div class="text-center p-4">
+      <h2>Perfil</h2>
+      <p class="lead">Modifica tus datos de usuario</p>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <label for="firstName">Nombre</label>
+        <input type="text" id="firstName">
+      </div>
+      <div class="col-md-6 col-12">
+        <label for="lastName">Apellido</label>
+        <input type="text" id="lastName">
+      </div>
+      <div class="col-lg-2 col-md-6 col-12 p-1">
+        <label for="birthDate">Fecha nacimiento</label>
+        <input class="form-control" type="date" id="birthDate">
+      </div>
+      <div class="col-md-6 col-12">
+        <label for="email">Correo Electrónico</label>
+        <input class="form-control" type="email" id="email">
+      </div>
+      <div class="col-md-6 col-12">
+        <label for="cellphone">Teléfono de contacto</label>
+        <input class="form-control" type="number" id="cellphone">
+      </div>
+      <div class="col-md-6 col-12">
+        <div id="preview"></div>
+        <br>
+        <button class="col-3 mb-n3 btn btn-primary"><label for="profilePic">Foto de perfil</label></button>
+        <input class="form-control d-none" type="file" id="profilePic" accept="image/*" onchange="updateImageDisplay()">
+      </div>
+      
+    </div>
+    <div class="row">
+      <div class="col-md-8 col"></div>
+      <div class="col-md-2 col-12">
+        <button class="btn btn-primary" onclick="saveData()">Guardar cambios</button>
+      </div>
+      <div class="col-md-2 col-12">
+        <button class="btn btn-danger" onclick="clearData()">Eliminar datos</button>
+      </div>
     </div>
   </div>
   <footer class="text-muted bg-light">

@@ -1,77 +1,103 @@
 var productCart,
-shippingCost=0;
+  shippingCost = 0;
 
 document.addEventListener("DOMContentLoaded", function (e) {
-    fetch(CART_INFO_URL)
-        .then(resp => (resp.json())
-            .then(function (data) {
-                productCart = data;
-                showProductsAtCart();
-            }))
+  fetch(CART_INFO_URL)
+    .then(resp => (resp.json())
+      .then(function (data) {
+        productCart = data;
+        showProductsAtCart();
+      }))
 });
-function changeTotals(k){
-    var
-    totCost=document.getElementById(`totCost${k}`),
-    sum=0,
-    subTotal=document.getElementById("subTotal"),
-    total=document.getElementById("total"),
-    count=document.getElementById(`productCount${k}`).value;
-    totCost.innerHTML=productCart.articles[k].unitCost*count;
-    for (let i=0; i<productCart.articles.length; i++){
-        if (productCart.articles[i].currency=="UYU"){
-            sum+=parseInt(document.getElementById(`totCost${i}`).innerHTML);
-        }else{
-            sum+=parseInt(document.getElementById(`totCost${i}`).innerHTML)*40;
-        }
+function changeTotals(k) {
+  var
+    totCost = document.getElementById(`totCost${k}`),
+    sum = 0,
+    subTotal = document.getElementById("subTotal"),
+    total = document.getElementById("total"),
+    count = document.getElementById(`productCount${k}`).value;
+  totCost.innerHTML = productCart.articles[k].unitCost * count;
+  for (let i = 0; i < productCart.articles.length; i++) {
+    if (productCart.articles[i].currency == "UYU") {
+      sum += parseInt(document.getElementById(`totCost${i}`).innerHTML);
+    } else {
+      sum += parseInt(document.getElementById(`totCost${i}`).innerHTML) * 40;
     }
-    subTotal.innerHTML=sum;
-    if (document.getElementById("totCurrency").innerHTML=="UYU$"){
-      total.innerHTML=(parseInt(subTotal.innerHTML)+shippingCost);
-    } else{
-      total.innerHTML=(parseInt(subTotal.innerHTML)+shippingCost)/40;
-    }
-    
   }
-function changeCurrency(){
-  if (document.getElementById("totCurrency").innerHTML=="UYU$"){
-    total.innerHTML=(parseInt(subTotal.innerHTML)+shippingCost)/40;
-    document.getElementById("totCurrency").innerHTML="USD$"
-  } else{
-    total.innerHTML=parseInt(subTotal.innerHTML)+shippingCost;
-    document.getElementById("totCurrency").innerHTML="UYU$"
+  subTotal.innerHTML = sum;
+  if (document.getElementById("totCurrency").innerHTML == "UYU$") {
+    total.innerHTML = (parseInt(subTotal.innerHTML) + shippingCost);
+  } else {
+    total.innerHTML = (parseInt(subTotal.innerHTML) + shippingCost) / 40;
   }
 
 }
-function shippingTotal(){
-  var shippingType=document.getElementById("selectShipping").value;
-
-  if (shippingType==3){
-    shippingCost=100;
-  } else if(shippingType==2){
-    shippingCost=20;
+function changeCurrency() {
+  if (document.getElementById("totCurrency").innerHTML == "UYU$") {
+    total.innerHTML = (parseInt(subTotal.innerHTML) + shippingCost) / 40;
+    document.getElementById("totCurrency").innerHTML = "USD$"
   } else {
-    shippingCost=0;
+    total.innerHTML = parseInt(subTotal.innerHTML) + shippingCost;
+    document.getElementById("totCurrency").innerHTML = "UYU$"
   }
-  for (let i=0; i<productCart.articles.length; i++){
-    changeTotals(i);
-}}
 
-function checkShipping(){
-  var warning=document.getElementById("warning"),
-  shippingType=document.getElementById("selectShipping").value,
-  payment=document.getElementById("selectPayment").value;
-    if (((shippingType==2)||(shippingType==3))&&(payment==1)){
-      warning.classList.remove("d-none")
-    } else if (!(warning.classList.contains("d-none"))){
-      warning.classList.add("d-none")
-    }
+}
+
+function shippingData() {
+  let shippingType = document.getElementById("selectShipping").value;
+  let shippingData = document.getElementById("shippingData");
+  if (shippingType == 2 || shippingType == 3 || shippingType == 4) {
+    shippingData.classList.remove("d-none")
+  } else {
+    shippingData.classList.add("d-none")
   }
+}
+function paymentData() {
+  let selectPayment = document.getElementById("selectPayment").value;
+  let paymentData = document.getElementById("paymentData");
+  let paymentData2 = document.getElementById("paymentData2");
+
+  if (selectPayment == 2){
+    paymentData.classList.remove("d-none");
+  } else if(selectPayment == 3){
+    paymentData2.classList.remove("d-none");
+  } else {
+    paymentData.classList.add("d-none");
+    paymentData2.classList.add("d-none");
+  }
+}
+
+function shippingTotal() {
+  let shippingType = document.getElementById("selectShipping").value;
+
+  if (shippingType == 3) {
+    shippingCost = 100;
+  } else if (shippingType == 2) {
+    shippingCost = 20;
+  } else {
+    shippingCost = 0;
+  }
+  for (let i = 0; i < productCart.articles.length; i++) {
+    changeTotals(i);
+  }
+}
+
+function checkShipping() {
+  var warning = document.getElementById("warning"),
+    shippingType = document.getElementById("selectShipping").value,
+    payment = document.getElementById("selectPayment").value;
+  if (((shippingType == 2) || (shippingType == 3) || (shippingType == 4)) && (payment == 1)) {
+    warning.classList.remove("d-none")
+  } else if (!(warning.classList.contains("d-none"))) {
+    warning.classList.add("d-none")
+  }
+}
 function showProductsAtCart() {
-    var 
-    cartContent=document.getElementById("content");
-    cartContent.innerHTML="";
-    for (let i=0; i<productCart.articles.length; i++){
-        cartContent.innerHTML+=`
+  var
+    cartContent = document.getElementById("content");
+  cartContent.innerHTML = "";
+  for (let i = 0; i < productCart.articles.length; i++) {
+    cartContent.innerHTML += `
     <hr>
     <div class="row">
       <div class="col-3">
@@ -98,8 +124,8 @@ function showProductsAtCart() {
         </h5>
       </div>
     </div>`
-    }
-    for (let i=0; i<productCart.articles.length; i++){
-        changeTotals(i);
-    }
+  }
+  for (let i = 0; i < productCart.articles.length; i++) {
+    changeTotals(i);
+  }
 }
