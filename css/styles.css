@@ -213,3 +213,6 @@ span.psw {
 .checked {
   color: orange;
 }
+.warningText{
+  background: rgba(255, 0, 0, 0.15)
+}
